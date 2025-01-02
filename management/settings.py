@@ -141,10 +141,20 @@ REST_FRAMEWORK = {
 }
 
 
-import django_heroku
-django_heroku.settings(locals())
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+}
+
 
 from decouple import config
 
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='default_secret_key')
+
+import os
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
